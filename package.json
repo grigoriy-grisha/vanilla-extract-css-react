@@ -16,6 +16,7 @@
     "@vanilla-extract/css": "1.0.0",
     "@vanilla-extract/webpack-plugin": "^1.0.1",
     "babel-loader": "^8.2.2",
+    "classnames": "^2.3.1",
     "css-loader": "^5.2.4",
     "dessert-box": "^0.1.0",
     "html-webpack-plugin": "^5.3.1",

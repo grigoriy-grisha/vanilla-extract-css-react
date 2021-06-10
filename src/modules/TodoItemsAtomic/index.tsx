@@ -1,22 +1,28 @@
-import { todoItemsContainer } from "../../styles/App.css";
-import TodoItem from "../../primitives/TodoItem";
-import { randomService } from "../../services/RandomService";
 import * as React from "react";
+
+import { todoItemsContainer } from "../../styles/App.css";
+
+import { randomService } from "../../services/RandomService";
 import { Photo } from "../../services/PhotoService";
-import { atoms } from "../../styles/atomicGlobalStyles/globalAtomic.css";
-import Wrapper from "../../primitives/Wrapper";
+import { styledCmpFromCss } from "../../styledComponent/styledCmpFromCss";
+import { checkedStyles, todoItemStyles } from "../../primitives/TodoItem/styles/todoItemStyles.css";
 
 interface TodoItemsAtomicInterface {
   photos: Photo[];
 }
 
+const TodoItemsContainer = styledCmpFromCss([todoItemsContainer]);
+const TodoItem = styledCmpFromCss<{ checked: boolean }>([[({ checked }) => checked, checkedStyles], todoItemStyles]);
+
 function TodoItemsAtomic({ photos }: TodoItemsAtomicInterface) {
   return (
-    <Wrapper className={todoItemsContainer}>
+    <TodoItemsContainer>
       {photos.map(({ id, title }) => (
-        <TodoItem key={id} text={title} checked={randomService.getRandomBoolean()} />
+        <TodoItem key={id} checked={randomService.getRandomBoolean()}>
+          {title}
+        </TodoItem>
       ))}
-    </Wrapper>
+    </TodoItemsContainer>
   );
 }
 

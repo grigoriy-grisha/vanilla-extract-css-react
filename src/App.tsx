@@ -11,8 +11,46 @@ import { atoms } from "./styles/atomicGlobalStyles/globalAtomic.css";
 import InputAtomic from "./primitives/InputAtomic";
 import TodoItems from "./modules/TodoItems";
 import TodoItemsAtomic from "./modules/TodoItemsAtomic";
-import Wrapper from "./primitives/Wrapper";
 
+import { styledCmpFromCss } from "./styledComponent/styledCmpFromCss";
+import { styledCmpFromCmp } from "./styledComponent/styledCmpFromCmp";
+
+const SuperLuxuryComponentInTheWorld = styledCmpFromCss<{ success?: boolean; error?: boolean }>([
+  [({ success }) => !!success, todoContainer],
+  [
+    ({ error }) => !!error,
+    atoms({
+      background: "white",
+      padding: { desktop: "5x", mobile: "0x" },
+      width: "containerWidth",
+      marginy: "none",
+      marginx: "auto",
+      boxshadow: "elevation/16px",
+      borderRadius: "0x",
+      border: "default",
+    }),
+  ],
+]);
+
+const TodoContainer = styledCmpFromCss([todoContainer]);
+const TodoTitle = styledCmpFromCss([todoTitle]);
+const TodoTitleRed = styledCmpFromCmp(TodoTitle)([atoms({ color: "red/04" })]);
+
+const TodoContainerAtomic = styledCmpFromCss([
+  atoms({
+    background: "white",
+    padding: { desktop: "5x", mobile: "0x" },
+    width: "containerWidth",
+    marginy: "none",
+    marginx: "auto",
+    boxshadow: "elevation/16px",
+    borderRadius: "0x",
+    border: "default",
+  }),
+]);
+
+const TodoTitleAtomic = styledCmpFromCss([atoms({ fontFamily: "IBM_SEMI_BOLD" })]);
+const TodoItemsAtomicWrapper = styledCmpFromCss([atoms({ marginTop: "1x" })]);
 export const App = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [value, setValue] = useState<string>("");
@@ -42,9 +80,17 @@ export const App = () => {
   }, [value]);
 
   return (
-    <Wrapper>
-      <Wrapper className={todoContainer}>
-        <Wrapper className={todoTitle}>Title</Wrapper>
+    <div>
+      <TodoContainer>
+        <TodoTitleRed
+          // as="h2"
+          className={atoms({ color: "red/04" })}
+          styles={{
+            padding: "5x",
+          }}
+        >
+          Title
+        </TodoTitleRed>
         <Input
           style={inputWidth}
           placeholder={"Placeholder"}
@@ -54,20 +100,9 @@ export const App = () => {
           success={success}
         />
         <TodoItems photos={photos} />
-      </Wrapper>
-      <Wrapper
-        className={atoms({
-          background: "white",
-          padding: { desktop: "5x", mobile: "0x" },
-          width: "containerWidth",
-          marginy: "none",
-          marginx: "auto",
-          boxshadow: "elevation/16px",
-          borderRadius: "0x",
-          border: "default",
-        })}
-      >
-        <Wrapper className={atoms({ fontFamily: "IBM_SEMI_BOLD" })}>Title</Wrapper>
+      </TodoContainer>
+      <TodoContainerAtomic>
+        <TodoTitleAtomic>Title</TodoTitleAtomic>
         <InputAtomic
           style={inputWidth}
           placeholder={"Placeholder"}
@@ -76,25 +111,28 @@ export const App = () => {
           error={error}
           success={success}
         />
-        <Wrapper className={atoms({ marginTop: "1x" })}>
+        <TodoItemsAtomicWrapper className={atoms({ marginTop: "1x" })}>
           <TodoItemsAtomic photos={photos} />
-        </Wrapper>
-      </Wrapper>
+        </TodoItemsAtomicWrapper>
+      </TodoContainerAtomic>
 
-      <Wrapper
-        paddingBottom="0x"
-        padding="2x"
-        border="default"
-        boxshadow="elevation/16px"
-        width="containerWidth"
-        marginx="auto"
-        marginy={{
-          desktop: "0x",
+      <SuperLuxuryComponentInTheWorld
+        success={success}
+        error={error}
+        styles={{
+          paddingBottom: "0x",
+          padding: "2x",
+          border: "default",
+          boxshadow: "elevation/16px",
+          width: "containerWidth",
+          margin: "auto",
+          marginy: {
+            desktop: "0x",
+          },
         }}
-        className={todoContainer}
       >
         Wrapper
-      </Wrapper>
-    </Wrapper>
+      </SuperLuxuryComponentInTheWorld>
+    </div>
   );
 };
