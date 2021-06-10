@@ -1,4 +1,4 @@
-import { StyledComponentProps } from "./StyledComponent";
+import { StyledComponentProps } from "./styledComponent";
 
 export type CmpFromCssType<ConditionalProps> = [
   (
@@ -6,3 +6,5 @@ export type CmpFromCssType<ConditionalProps> = [
   ) => boolean,
   string,
 ];
+
+export type Styles<ConditionalProps> = Array<CmpFromCssType<ConditionalProps> | string>;

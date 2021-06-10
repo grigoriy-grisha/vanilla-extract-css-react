@@ -4,8 +4,8 @@ import { todoItemsContainer } from "../../styles/App.css";
 
 import { randomService } from "../../services/RandomService";
 import { Photo } from "../../services/PhotoService";
-import { styledCmpFromCss } from "../../styledComponent/styledCmpFromCss";
 import { checkedStyles, todoItemStyles } from "../../primitives/TodoItem/styles/todoItemStyles.css";
+import { styledCmpFromCss } from "../../libs/styledComponent/styledCmpFromCss";
 
 interface TodoItemsAtomicInterface {
   photos: Photo[];

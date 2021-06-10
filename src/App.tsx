@@ -11,9 +11,8 @@ import { atoms } from "./styles/atomicGlobalStyles/globalAtomic.css";
 import InputAtomic from "./primitives/InputAtomic";
 import TodoItems from "./modules/TodoItems";
 import TodoItemsAtomic from "./modules/TodoItemsAtomic";
-
-import { styledCmpFromCss } from "./styledComponent/styledCmpFromCss";
-import { styledCmpFromCmp } from "./styledComponent/styledCmpFromCmp";
+import { styledCmpFromCss } from "./libs/styledComponent/styledCmpFromCss";
+import { styledCmpFromCmp } from "./libs/styledComponent/styledCmpFromCmp";
 
 const SuperLuxuryComponentInTheWorld = styledCmpFromCss<{ success?: boolean; error?: boolean }>([
   [({ success }) => !!success, todoContainer],
@@ -101,6 +100,24 @@ export const App = () => {
         />
         <TodoItems photos={photos} />
       </TodoContainer>
+      {Array(10)
+        .fill("")
+        .map(() => (
+          <TodoContainerAtomic>
+            <TodoTitleAtomic>Title</TodoTitleAtomic>
+            <InputAtomic
+              style={inputWidth}
+              placeholder={"Placeholder"}
+              value={value}
+              onChange={setValue}
+              error={error}
+              success={success}
+            />
+            <TodoItemsAtomicWrapper className={atoms({ marginTop: "1x" })}>
+              <TodoItemsAtomic photos={photos} />
+            </TodoItemsAtomicWrapper>
+          </TodoContainerAtomic>
+        ))}
       <TodoContainerAtomic>
         <TodoTitleAtomic>Title</TodoTitleAtomic>
         <InputAtomic
