@@ -19,7 +19,7 @@ export const App = () => {
   const [error, setError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  //TODO функционал не имеет значение
+  //TODO функционал не имеет значения
   useEffect(() => {
     photoService.getPhotos(5).then(setPhotos);
   }, []);

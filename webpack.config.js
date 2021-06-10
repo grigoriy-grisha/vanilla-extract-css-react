@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: path.join(__dirname, "./src/index.tsx"),
+  entry: path.join(__dirname, "./src/index.tsx"), // входной файл приложения
   mode: "development",
   resolve: {
     extensions: [".js", ".json", ".ts", ".tsx"],
@@ -24,7 +24,6 @@ module.exports = {
                 "@babel/preset-typescript",
                 ["@babel/preset-react", { runtime: "automatic" }],
                 ["@babel/preset-env", { targets: { node: 14 }, modules: false }],
-                // ["@babel/plugin-proposal-decorators", { legacy: true }],
               ],
               plugins: ["@vanilla-extract/babel-plugin"],
             },
@@ -36,7 +35,7 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /\.(ttf|eot|svg|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(ttf|eot|svg|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/, //для шрифтов и других файлов
         use: ["file-loader"],
       },
     ],
