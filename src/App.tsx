@@ -8,13 +8,20 @@ import { Photo, photoService } from "./services/PhotoService";
 import { inputWidth } from "./styles/App.css";
 import { todoContainer, todoTitle } from "./styles/todoContainer.css";
 import { atoms } from "./styles/atomicGlobalStyles/globalAtomic.css";
-import InputAtomic from "./primitives/InputAtomic";
+import InputAtomic, { InputAtomicInterface } from "./primitives/InputAtomic";
 import TodoItems from "./modules/TodoItems";
 import TodoItemsAtomic from "./modules/TodoItemsAtomic";
-import { styledCmpFromCss } from "./libs/styledComponent/styledCmpFromCss";
-import { styledCmpFromCmp } from "./libs/styledComponent/styledCmpFromCmp";
+import { styledComponent } from "./libs/styledComponent/styledComponent";
+import { styledComponentFromComponent } from "./libs/styledComponent/styledComponentFromComponent";
 
-const SuperLuxuryComponentInTheWorld = styledCmpFromCss<{ success?: boolean; error?: boolean }>([
+//TODo нужен рефакторинг
+//Todo подумать над реализацией как в styleComponents
+const TodoContainer = styledComponent("div")([todoContainer]);
+const TodoButton = styledComponent("button")([todoContainer]);
+const TodoTitle = styledComponent("div")([todoTitle]);
+const TodoTitleRed = styledComponentFromComponent(TodoButton)([atoms({ color: "red/04" })]);
+
+const SuperLuxuryComponentInTheWorld = styledComponent<{ success?: boolean; error?: boolean }>("div")([
   ({ success }) => success && todoContainer,
   ({ error }) =>
     error &&
@@ -30,11 +37,7 @@ const SuperLuxuryComponentInTheWorld = styledCmpFromCss<{ success?: boolean; err
     }),
 ]);
 
-const TodoContainer = styledCmpFromCss([todoContainer]);
-const TodoTitle = styledCmpFromCss([todoTitle]);
-const TodoTitleRed = styledCmpFromCmp(TodoTitle)([atoms({ color: "red/04" })]);
-
-const TodoContainerAtomic = styledCmpFromCss([
+const TodoContainerAtomic = styledComponent("div")([
   atoms({
     background: "white",
     padding: { desktop: "5x", mobile: "0x" },
@@ -47,8 +50,8 @@ const TodoContainerAtomic = styledCmpFromCss([
   }),
 ]);
 
-const TodoTitleAtomic = styledCmpFromCss([atoms({ fontFamily: "IBM_SEMI_BOLD" })]);
-const TodoItemsAtomicWrapper = styledCmpFromCss([atoms({ marginTop: "1x" })]);
+const TodoTitleAtomic = styledComponent("div")([atoms({ fontFamily: "IBM_SEMI_BOLD" })]);
+const TodoItemsAtomicWrapper = styledComponent("div")([atoms({ marginTop: "1x" })]);
 
 export const App = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -81,7 +84,7 @@ export const App = () => {
   return (
     <div>
       <TodoContainer>
-        <TodoTitleRed>Title</TodoTitleRed>
+        <TodoTitleRed> Title</TodoTitleRed>
         <Input
           style={inputWidth}
           placeholder={"Placeholder"}

@@ -3,9 +3,9 @@ import { ChangeEvent, useCallback } from "react";
 
 import { atoms } from "../../styles/atomicGlobalStyles/globalAtomic.css";
 import { inputDynamicStyles, inputErrorDynamicStyles, inputSuccessDynamicStyles } from "./styles/inputStyles.css";
-import { styledCmpFromCss } from "../../libs/styledComponent/styledCmpFromCss";
+import { styledComponent } from "../../libs/styledComponent/styledComponent";
 
-interface InputAtomicInterface {
+export interface InputAtomicInterface {
   placeholder?: string;
   styles?: Parameters<typeof atoms>[0];
   error?: boolean;
@@ -14,7 +14,8 @@ interface InputAtomicInterface {
   onChange: (value: string) => void;
 }
 
-const StyledInput = styledCmpFromCss<{ error?: boolean; success?: boolean }>([
+//Todo подумать над реализацией как в styleComponents
+const StyledInput = styledComponent<{ error?: boolean; success?: boolean }>("div")([
   ({ error }) => error && inputErrorDynamicStyles,
   ({ success }) => success && inputSuccessDynamicStyles,
   inputDynamicStyles,

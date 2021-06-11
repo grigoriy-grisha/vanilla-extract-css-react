@@ -5,14 +5,17 @@ import { todoItemsContainer } from "../../styles/App.css";
 import { randomService } from "../../services/RandomService";
 import { Photo } from "../../services/PhotoService";
 import { checkedStyles, todoItemStyles } from "../../primitives/TodoItem/styles/todoItemStyles.css";
-import { styledCmpFromCss } from "../../libs/styledComponent/styledCmpFromCss";
+import { styledComponent } from "../../libs/styledComponent/styledComponent";
 
 interface TodoItemsAtomicInterface {
   photos: Photo[];
 }
 
-const TodoItemsContainer = styledCmpFromCss([todoItemsContainer]);
-const TodoItem = styledCmpFromCss<{ checked: boolean }>([({ checked }) => checked && checkedStyles, todoItemStyles]);
+const TodoItemsContainer = styledComponent("div")([todoItemsContainer]);
+const TodoItem = styledComponent<{ checked: boolean }>("div")([
+  ({ checked }) => checked && checkedStyles,
+  todoItemStyles,
+]);
 
 function TodoItemsAtomic({ photos }: TodoItemsAtomicInterface) {
   return (
