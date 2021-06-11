@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import cn from "classnames";
 
 //TODO откуда конфигурировать глоабльные atoms?
-import { computedStyle } from "../libs";
+import { computeStyles } from "../libs";
 import { CmpFromCssType } from "../types";
 import { atoms } from "../../../styles/atomicGlobalStyles/globalAtomic.css";
 
@@ -31,7 +31,7 @@ export function styledComponent<ConditionalProps>(
         className={cn(
           atoms(styles),
           className,
-          stylesConditions?.length !== 0 ? computedStyle<ConditionalProps>(stylesConditions!, props) : "",
+          stylesConditions?.length !== 0 ? computeStyles<ConditionalProps>(stylesConditions!, props) : "",
           classNames,
         )}
         ref={ref}

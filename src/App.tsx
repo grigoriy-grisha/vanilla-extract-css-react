@@ -50,6 +50,7 @@ const TodoContainerAtomic = styledCmpFromCss([
 
 const TodoTitleAtomic = styledCmpFromCss([atoms({ fontFamily: "IBM_SEMI_BOLD" })]);
 const TodoItemsAtomicWrapper = styledCmpFromCss([atoms({ marginTop: "1x" })]);
+
 export const App = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [value, setValue] = useState<string>("");
@@ -86,6 +87,7 @@ export const App = () => {
           className={atoms({ color: "red/04" })}
           styles={{
             padding: "5x",
+            color: "red/04",
           }}
         >
           Title
@@ -102,11 +104,16 @@ export const App = () => {
       </TodoContainer>
       {Array(10)
         .fill("")
-        .map(() => (
-          <TodoContainerAtomic>
+        .map((_, index) => (
+          <TodoContainerAtomic key={index}>
             <TodoTitleAtomic>Title</TodoTitleAtomic>
             <InputAtomic
-              style={inputWidth}
+              styles={{
+                width: "containerWidth",
+                marginy: "none",
+                marginx: "auto",
+                display: "block",
+              }}
               placeholder={"Placeholder"}
               value={value}
               onChange={setValue}
@@ -121,7 +128,11 @@ export const App = () => {
       <TodoContainerAtomic>
         <TodoTitleAtomic>Title</TodoTitleAtomic>
         <InputAtomic
-          style={inputWidth}
+          styles={{
+            width: "containerWidth",
+            marginy: "none",
+            marginx: "auto",
+          }}
           placeholder={"Placeholder"}
           value={value}
           onChange={setValue}

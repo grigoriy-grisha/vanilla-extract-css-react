@@ -11,7 +11,7 @@ const globalAtomic = createAtomicStyles({
   },
   defaultCondition: "mobile",
   properties: {
-    display: ["none", "flex"],
+    display: ["none", "flex", "block"],
     flexDirection: ["row", "column"],
     alignItems: ["stretch", "flex-start", "center", "flex-end"],
     justifyContent: ["stretch", "flex-start", "center", "flex-end"],

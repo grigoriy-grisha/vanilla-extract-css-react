@@ -1,9 +1,7 @@
 import { CmpFromCssType, Styles } from "./types";
 
-export function computedStyle<ConditionalProps>(stylesConditions: CmpFromCssType<ConditionalProps>[], props: any) {
-  return stylesConditions
-    .map(([conditionalFn, className]) => conditionalFn && conditionalFn(props) && className)
-    .filter(Boolean);
+export function computeStyles<ConditionalProps>(stylesConditions: CmpFromCssType<ConditionalProps>[], props: any) {
+  return stylesConditions.filter(([conditionalFn, className]) => conditionalFn && conditionalFn(props) && className);
 }
 
 export function sortStyles<ConditionalProps>(styles: Styles<ConditionalProps>) {
