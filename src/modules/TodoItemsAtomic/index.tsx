@@ -12,7 +12,7 @@ interface TodoItemsAtomicInterface {
 }
 
 const TodoItemsContainer = styledCmpFromCss([todoItemsContainer]);
-const TodoItem = styledCmpFromCss<{ checked: boolean }>([[({ checked }) => checked, checkedStyles], todoItemStyles]);
+const TodoItem = styledCmpFromCss<{ checked: boolean }>([({ checked }) => checked && checkedStyles, todoItemStyles]);
 
 function TodoItemsAtomic({ photos }: TodoItemsAtomicInterface) {
   return (

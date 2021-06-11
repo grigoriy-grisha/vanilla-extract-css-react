@@ -15,9 +15,9 @@ import { styledCmpFromCss } from "./libs/styledComponent/styledCmpFromCss";
 import { styledCmpFromCmp } from "./libs/styledComponent/styledCmpFromCmp";
 
 const SuperLuxuryComponentInTheWorld = styledCmpFromCss<{ success?: boolean; error?: boolean }>([
-  [({ success }) => !!success, todoContainer],
-  [
-    ({ error }) => !!error,
+  ({ success }) => success && todoContainer,
+  ({ error }) =>
+    error &&
     atoms({
       background: "white",
       padding: { desktop: "5x", mobile: "0x" },
@@ -28,7 +28,6 @@ const SuperLuxuryComponentInTheWorld = styledCmpFromCss<{ success?: boolean; err
       borderRadius: "0x",
       border: "default",
     }),
-  ],
 ]);
 
 const TodoContainer = styledCmpFromCss([todoContainer]);
@@ -82,16 +81,7 @@ export const App = () => {
   return (
     <div>
       <TodoContainer>
-        <TodoTitleRed
-          // as="h2"
-          className={atoms({ color: "red/04" })}
-          styles={{
-            padding: "5x",
-            color: "red/04",
-          }}
-        >
-          Title
-        </TodoTitleRed>
+        <TodoTitleRed>Title</TodoTitleRed>
         <Input
           style={inputWidth}
           placeholder={"Placeholder"}
@@ -132,6 +122,7 @@ export const App = () => {
             width: "containerWidth",
             marginy: "none",
             marginx: "auto",
+            display: "block",
           }}
           placeholder={"Placeholder"}
           value={value}
@@ -145,8 +136,8 @@ export const App = () => {
       </TodoContainerAtomic>
 
       <SuperLuxuryComponentInTheWorld
-        success={success}
         error={error}
+        success={success}
         styles={{
           paddingBottom: "0x",
           padding: "2x",

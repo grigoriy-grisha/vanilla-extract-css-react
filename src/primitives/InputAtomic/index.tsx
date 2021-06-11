@@ -15,8 +15,8 @@ interface InputAtomicInterface {
 }
 
 const StyledInput = styledCmpFromCss<{ error?: boolean; success?: boolean }>([
-  [({ error }) => !!error, inputErrorDynamicStyles],
-  [({ success }) => !!success, inputSuccessDynamicStyles],
+  ({ error }) => error && inputErrorDynamicStyles,
+  ({ success }) => success && inputSuccessDynamicStyles,
   inputDynamicStyles,
 ]);
 
