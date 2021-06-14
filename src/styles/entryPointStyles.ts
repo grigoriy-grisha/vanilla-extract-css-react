@@ -1,4 +1,4 @@
-import { StyledComponents } from "../libs/styledComponent";
 import { atoms } from "./atomicGlobalStyles/globalAtomic.css";
+import { configureAtoms } from "../libs/styledComponent";
 
-export const styled = StyledComponents.configure(atoms);
+export const vanillaStyled = configureAtoms(atoms);

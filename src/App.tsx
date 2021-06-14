@@ -11,15 +11,16 @@ import { atoms } from "./styles/atomicGlobalStyles/globalAtomic.css";
 import InputAtomic from "./primitives/InputAtomic";
 import TodoItems from "./modules/TodoItems";
 import TodoItemsAtomic from "./modules/TodoItemsAtomic";
-import { styled } from "./styles/entryPointStyles";
+import { vanillaStyled } from "./styles/entryPointStyles";
 
-//TODo нужен рефакторинг
-//Todo подумать над реализацией как в styleComponents
-const TodoContainer = styled.createComponent("div")([todoContainer]);
-const TodoButton = styled.createComponent("button")([todoContainer]);
-const TodoTitle = styled.createComponent(TodoButton)([todoTitle]);
+const TodoContainer = vanillaStyled.div(todoContainer);
+const TodoButton = vanillaStyled.button(todoContainer);
+const TodoTitle = vanillaStyled(TodoButton)(todoTitle);
 
-const SuperLuxuryComponentInTheWorld = styled.createComponent("div")<{ success?: boolean; error?: boolean }>([
+const SuperLuxuryComponentInTheWorld = vanillaStyled.div<{
+  success?: boolean;
+  error?: boolean;
+}>(
   ({ success }) => success && todoContainer,
   ({ error }) =>
     error &&
@@ -31,11 +32,11 @@ const SuperLuxuryComponentInTheWorld = styled.createComponent("div")<{ success?:
       marginx: "auto",
       boxshadow: "elevation/16px",
       borderRadius: "0x",
-      border: "default",
-    }),
-]);
+      border: "default"
+    })
+);
 
-const TodoContainerAtomic = styled.createComponent("div")([
+const TodoContainerAtomic = vanillaStyled.div(
   atoms({
     background: "white",
     padding: { desktop: "5x", mobile: "0x" },
@@ -44,12 +45,14 @@ const TodoContainerAtomic = styled.createComponent("div")([
     marginx: "auto",
     boxshadow: "elevation/16px",
     borderRadius: "0x",
-    border: "default",
-  }),
-]);
+    border: "default"
+  })
+);
 
-const TodoTitleAtomic = styled.createComponent("div")([atoms({ fontFamily: "IBM_SEMI_BOLD" })]);
-const TodoItemsAtomicWrapper = styled.createComponent("div")([atoms({ marginTop: "1x" })]);
+const TodoTitleAtomic = vanillaStyled.div(
+  atoms({ fontFamily: "IBM_SEMI_BOLD" })
+);
+const TodoItemsAtomicWrapper = vanillaStyled.div(atoms({ marginTop: "1x" }));
 
 export const App = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -103,7 +106,7 @@ export const App = () => {
                 width: "containerWidth",
                 marginy: "none",
                 marginx: "auto",
-                display: "block",
+                display: "block"
               }}
               placeholder={"Placeholder"}
               value={value}
@@ -123,7 +126,7 @@ export const App = () => {
             width: "containerWidth",
             marginy: "none",
             marginx: "auto",
-            display: "block",
+            display: "block"
           }}
           placeholder={"Placeholder"}
           value={value}
@@ -147,8 +150,8 @@ export const App = () => {
           width: "containerWidth",
           margin: "auto",
           marginy: {
-            desktop: "0x",
-          },
+            desktop: "0x"
+          }
         }}
       >
         Wrapper

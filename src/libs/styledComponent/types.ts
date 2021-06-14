@@ -1,12 +1,18 @@
 import * as React from "react";
+import { ComponentProps, ElementType } from "react";
+import { domElements } from "./domElements";
 
-export type CmpFromCssType<ConditionalProps, ATOMS> = (
-  props: Omit<StyledComponentProps<ATOMS>, "as" | "children" | "className" | "stylesConditions"> & ConditionalProps,
+export type VanillaStyledComponentType<ConditionalProps> = (
+  props: Omit<
+    StyledComponentProps<any>,
+    "as" | "children" | "className" | "stylesConditions"
+  > &
+    ConditionalProps
 ) => any;
 
-export type Styles<ConditionalProps> = Array<CmpFromCssType<ConditionalProps, any> | string>;
-
-export type StyledOptions = { forwardRef?: boolean };
+export type Styles<ConditionalProps> = Array<
+  VanillaStyledComponentType<ConditionalProps> | string
+>;
 
 export type StyledComponentProps<ATOMS> = {
   as?: keyof JSX.IntrinsicElements;
@@ -16,6 +22,17 @@ export type StyledComponentProps<ATOMS> = {
   [key: string]: any;
 };
 
-export type StyledComponentReturn<ElemProps, ATOMS, ConditionalProps> = React.NamedExoticComponent<
-  StyledComponentProps<ATOMS> & ConditionalProps & ElemProps
->;
+export type StyledComponentReturn<ElemProps, ATOMS, ConditionalProps> =
+  React.NamedExoticComponent<
+    StyledComponentProps<ATOMS> & ConditionalProps & ElemProps
+  >;
+
+type createComponentType<ATOMS, Component extends ElementType> = <
+  ConditionalProps
+>(
+  ...computedStyles: Styles<ConditionalProps>
+) => StyledComponentReturn<ComponentProps<Component>, ATOMS, ConditionalProps>;
+
+export type DomElementsInterface<ATOMS> = {
+  [KEY in typeof domElements[number]]: createComponentType<ATOMS, KEY>;
+};

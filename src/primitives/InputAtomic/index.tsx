@@ -2,8 +2,12 @@ import * as React from "react";
 import { ChangeEvent, useCallback } from "react";
 
 import { atoms } from "../../styles/atomicGlobalStyles/globalAtomic.css";
-import { inputDynamicStyles, inputErrorDynamicStyles, inputSuccessDynamicStyles } from "./styles/inputStyles.css";
-import { styled } from "../../styles/entryPointStyles";
+import {
+  inputDynamicStyles,
+  inputErrorDynamicStyles,
+  inputSuccessDynamicStyles
+} from "./styles/inputStyles.css";
+import { vanillaStyled } from "../../styles/entryPointStyles";
 
 export interface InputAtomicInterface {
   placeholder?: string;
@@ -14,28 +18,33 @@ export interface InputAtomicInterface {
   onChange: (value: string) => void;
 }
 
-//Todo подумать над реализацией как в styleComponents
-const StyledInput = styled.createComponent("input")<{ error?: boolean; success?: boolean }>([
+const StyledInput = vanillaStyled.input<{ error?: boolean; success?: boolean }>(
   ({ error }) => error && inputErrorDynamicStyles,
   ({ success }) => success && inputSuccessDynamicStyles,
-  inputDynamicStyles,
-]);
+  inputDynamicStyles
+);
 
-function InputAtomic({ placeholder, styles, value, error = false, success = false, onChange }: InputAtomicInterface) {
+function InputAtomic({
+  placeholder,
+  styles,
+  value,
+  error = false,
+  success = false,
+  onChange
+}: InputAtomicInterface) {
   const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   }, []);
 
   return (
     <StyledInput
-      as="input"
       type="text"
       className={atoms({
         padding: "2x",
         background: "gray-blue/01-50%",
         outline: "none",
         border: "default",
-        borderRadius: "0x",
+        borderRadius: "0x"
       })}
       styles={styles}
       error={error}

@@ -6,23 +6,27 @@ import { todoItemsContainer } from "../../styles/App.css";
 import { randomService } from "../../services/RandomService";
 import { Photo } from "../../services/PhotoService";
 import { todoItemAtomicStyles } from "../TodoItemsAtomic/TodoItemAtomic.css";
-import { styled } from "../../styles/entryPointStyles";
+import { vanillaStyled } from "../../styles/entryPointStyles";
 
 interface TodoItemsInterface {
   photos: Photo[];
 }
 
-const TodoItemsContainer = styled.createComponent("div")([todoItemsContainer]);
-const TodoItem = styled.createComponent("div")<{ checked: boolean }>([
+const TodoItemsContainer = vanillaStyled.div(todoItemsContainer);
+const TodoItem = vanillaStyled.div<{ checked: boolean }>(
   ({ checked }) => checked && checkedStyles,
-  todoItemAtomicStyles,
-]);
+  todoItemAtomicStyles
+);
 
 function TodoItems({ photos }: TodoItemsInterface) {
   return (
     <TodoItemsContainer>
       {photos.map(({ id, title }) => (
-        <TodoItem key={id} text={title} checked={randomService.getRandomBoolean()}>
+        <TodoItem
+          key={id}
+          text={title}
+          checked={randomService.getRandomBoolean()}
+        >
           {title}
         </TodoItem>
       ))}
