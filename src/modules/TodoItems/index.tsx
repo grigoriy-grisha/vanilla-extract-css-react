@@ -6,14 +6,14 @@ import { todoItemsContainer } from "../../styles/App.css";
 import { randomService } from "../../services/RandomService";
 import { Photo } from "../../services/PhotoService";
 import { todoItemAtomicStyles } from "../TodoItemsAtomic/TodoItemAtomic.css";
-import { styledComponent } from "../../libs/styledComponent/styledComponent";
+import { styled } from "../../styles/entryPointStyles";
 
 interface TodoItemsInterface {
   photos: Photo[];
 }
 
-const TodoItemsContainer = styledComponent("div")([todoItemsContainer]);
-const TodoItem = styledComponent<{ checked: boolean }>("div")([
+const TodoItemsContainer = styled.createComponent("div")([todoItemsContainer]);
+const TodoItem = styled.createComponent("div")<{ checked: boolean }>([
   ({ checked }) => checked && checkedStyles,
   todoItemAtomicStyles,
 ]);

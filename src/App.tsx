@@ -19,7 +19,7 @@ const TodoContainer = styled.createComponent("div")([todoContainer]);
 const TodoButton = styled.createComponent("button")([todoContainer]);
 const TodoTitle = styled.createComponent(TodoButton)([todoTitle]);
 
-const SuperLuxuryComponentInTheWorld = styled.createComponent<{ success?: boolean; error?: boolean }>("div")([
+const SuperLuxuryComponentInTheWorld = styled.createComponent("div")<{ success?: boolean; error?: boolean }>([
   ({ success }) => success && todoContainer,
   ({ error }) =>
     error &&

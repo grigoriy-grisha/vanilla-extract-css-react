@@ -3,7 +3,6 @@ import { ChangeEvent, useCallback } from "react";
 
 import { atoms } from "../../styles/atomicGlobalStyles/globalAtomic.css";
 import { inputDynamicStyles, inputErrorDynamicStyles, inputSuccessDynamicStyles } from "./styles/inputStyles.css";
-import { styledComponent } from "../../libs/styledComponent/styledComponent";
 import { styled } from "../../styles/entryPointStyles";
 
 export interface InputAtomicInterface {
@@ -16,7 +15,7 @@ export interface InputAtomicInterface {
 }
 
 //Todo подумать над реализацией как в styleComponents
-const StyledInput = styled.createComponent<{ error?: boolean; success?: boolean }>("input")([
+const StyledInput = styled.createComponent("input")<{ error?: boolean; success?: boolean }>([
   ({ error }) => error && inputErrorDynamicStyles,
   ({ success }) => success && inputSuccessDynamicStyles,
   inputDynamicStyles,

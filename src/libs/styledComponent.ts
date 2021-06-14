@@ -1,36 +1,33 @@
-import { forwardRef, ForwardRefExoticComponent, MemoExoticComponent, NamedExoticComponent } from "react";
-import { StyledComponentProps, StyledOptions, Styles } from "./styledComponent/types";
+import { ComponentProps, ElementType, forwardRef } from "react";
 import * as React from "react";
 import cn from "classnames";
-import { computeStyles } from "./styledComponent/libs";
 import { isEmpty } from "ramda";
 import { AtomsFn } from "@vanilla-extract/sprinkles/createAtomsFn";
 
+import { StyledComponentProps, StyledComponentReturn, StyledOptions, Styles } from "./styledComponent/types";
+import { computeStyles } from "./styledComponent/libs";
+
 export class StyledComponents<ATOMS> {
   private atoms: AtomsFn<[any]>;
+
   private constructor(atoms: any) {
     this.atoms = atoms;
   }
+
   public static configure<ATOMS extends AtomsFn<[any]>>(atoms: ATOMS) {
     return new StyledComponents<Parameters<ATOMS>[0]>(atoms);
   }
 
-  createComponent<ConditionalProps>(
-    element:
-      | keyof JSX.IntrinsicElements
-      | NamedExoticComponent
-      | MemoExoticComponent<any>
-      | ForwardRefExoticComponent<any> = "div",
-  ) {
-    return (
+  createComponent<Component extends ElementType>(element: Component) {
+    return <ConditionalProps>(
       computedStyles: Styles<ConditionalProps>,
       options?: StyledOptions,
-    ): React.NamedExoticComponent<StyledComponentProps & ConditionalProps> => {
+    ): StyledComponentReturn<ComponentProps<typeof element>, ATOMS, ConditionalProps> => {
       const { atoms } = this;
 
       const StyledComponent = function (
-        { className, children, styles = {}, ...props }: StyledComponentProps,
-        ref: React.ForwardedRef<unknown>,
+        { className, children, styles = {}, ...props }: StyledComponentProps<ATOMS>,
+        ref: React.ForwardedRef<any>,
       ) {
         const resultProps: any = {
           ...props,
